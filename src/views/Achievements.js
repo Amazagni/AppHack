@@ -11,72 +11,34 @@ import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import PointDetails from "../components/PointDetails/PointDetails";
+import Achievement from "../components/achievement/Achievement";
 
 const Achievements = () => {
   return (
     <View style={styles.container}>
       <View style={styles.categoryNameContainer}>
         <Text style={styles.categoryName}>Kraków</Text>
+        <Text>4/15</Text>
       </View>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
+      <Achievement
+        imageSource={require("../../assets/icon.png")}
+        achievementTitle="Achievement Name"
+      />
+      <Achievement
+        imageSource={require("../../assets/icon.png")}
+        achievementTitle="Achievement Name"
+      />
+      <Achievement
+        imageSource={require("../../assets/icon.png")}
+        achievementTitle="Achievement Name"
+      />
+      <Achievement
+        imageSource={require("../../assets/icon.png")}
+        achievementTitle="Achievement Name"
+      />
       <View style={styles.categoryNameContainer}>
         <Text style={styles.categoryName}>Kraków</Text>
       </View>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
-      <Image
-        style={styles.icon}
-        source={require("../../assets/icon.png")}
-      ></Image>
     </View>
   );
 };
@@ -88,6 +50,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     borderRadius: 50,
+    gap: 10,
+    maxWidth: "90%",
+    margin: "auto",
   },
   icon: {
     height: 90,
@@ -99,6 +64,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   categoryNameContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     marginTop: 15,
