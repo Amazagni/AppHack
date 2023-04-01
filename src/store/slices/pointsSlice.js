@@ -17,8 +17,18 @@ export const fetchPoints = createAsyncThunk(
 
 const slice = createSlice({
   name: "points",
-  initialState: { points: [], pointsLoading: false, pointsError: null },
-  reducers: {},
+  initialState: {
+    points: [],
+    pointsLoading: false,
+    pointsError: null,
+    activePoint: {},
+  },
+  reducers: {
+    setActivePoint: (state, action) => {
+      console.log("wtddddddddddd");
+      state.activePoint = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(fetchPoints.fulfilled, (state, action) => {
@@ -38,15 +48,17 @@ const slice = createSlice({
     });
   },
 });
-export const { changeTheme, setDefaultTheme } = slice.actions;
+export const { setActivePoint } = slice.actions;
 export default slice.reducer;
 
 export const selectPoints = (state) => {
-  let discovered = state.points.point;
-
   return {
     points: state.points.points,
     loading: state.points.pointsLoading,
     error: state.points.pointsError,
   };
+};
+
+export const selectActivePoint = (state) => {
+  return state.points.activePoint;
 };

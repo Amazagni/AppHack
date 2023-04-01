@@ -5,7 +5,11 @@ import React, { useEffect } from "react";
 // Import required components
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { useDispatch, connect, useSelector } from "react-redux";
-import { fetchPoints, selectPoints } from "./store/slices/pointsSlice";
+import {
+  fetchPoints,
+  selectPoints,
+  setActivePoint,
+} from "./store/slices/pointsSlice";
 // Import Map and Marker
 import * as Location from "expo-location";
 
@@ -25,10 +29,6 @@ const LocationMap = (props) => {
       }
     })();
   }, []);
-
-  useEffect(() => {
-    console.log(props.style);
-  }, [props.style]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -56,11 +56,16 @@ const LocationMap = (props) => {
                         ? require("../assets/yellowexcl.png")
                         : require("../assets/quest.png")
                     }
+                    onPress={() => {
+                      dispatch(setActivePoint(point));
+                    }}
                     coordinate={{
                       latitude: point.attributes.Long,
                       longitude: point.attributes.Lat,
                     }}
-                    title={point.attributes.Name}
+                    title={
+                      discovered ? point.attributes.Name : "Nieodkryte miejsce"
+                    }
                   />
                 );
               })

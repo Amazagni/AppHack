@@ -10,6 +10,7 @@ import {
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import PointDetails from "../components/PointDetails/PointDetails";
 
 const Achievements = () => {
   return (

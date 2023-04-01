@@ -17,21 +17,22 @@ import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
+import { useSelector, connect } from "react-redux";
 
 import Animated, {
   useSharedValue,
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import { selectActivePoint } from "./store/slices/pointsSlice";
+import PointDetails from "./components/PointDetails/PointDetails";
 
 const BottomPanel = (props) => {
   const [toPos, setToPos] = useState(0);
 
+  const currentPoint = useSelector(selectActivePoint);
+
   const sheetRef = useRef(null);
-  const currentPosition = useSharedValue(0);
-  useEffect(() => {
-    console.log("currentPosition", currentPosition);
-  }, [currentPosition]);
 
   // variables
   const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
@@ -46,21 +47,10 @@ const BottomPanel = (props) => {
   const handleSheetChange = useCallback((index) => {
     console.log("handleSheetChange", index);
   }, []);
-  const handleSnapPress = useCallback((index) => {
-    sheetRef.current?.snapToIndex(index);
-  }, []);
-  const handleClosePress = useCallback(() => {
-    sheetRef.current?.close();
-  }, []);
 
-  const renderItem = useCallback(
-    ({ item }) => (
-      <View style={styles.itemContainer}>
-        <Text>{item}</Text>
-      </View>
-    ),
-    []
-  );
+  useEffect(() => {
+    if (currentPoint !== null) sheetRef.current.expand();
+  }, [currentPoint]);
 
   // renders
   return (
@@ -70,7 +60,6 @@ const BottomPanel = (props) => {
         ref={sheetRef}
         snapPoints={snapPoints}
         onChange={handleSheetChange}
-        animatedPosition={currentPosition}
         onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
@@ -85,6 +74,7 @@ const BottomPanel = (props) => {
             <View style={styles.expProgress}></View>
           </View>
           <Text style={styles.levelText}>Level: 20</Text>
+          <PointDetails />
           <Button
             onPress={() => {
               props.navigation.navigate("Achievements");
@@ -139,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomPanel;
+export default connect()(BottomPanel);
