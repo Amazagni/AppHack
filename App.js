@@ -14,6 +14,7 @@ import MapView, { Marker } from "react-native-maps";
 import LocationMap from "./src/Map";
 import BottomPanel from "./src/BottomPanel";
 import { registerRootComponent } from "expo";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 const App = () => {
   return (
     <Provider store={store}>
@@ -21,7 +22,9 @@ const App = () => {
         {/* <View style={styles.container}>
           <Index />
         </View> */}
-        <BottomPanel />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomPanel />
+        </GestureHandlerRootView>
       </PersistGate>
     </Provider>
   );
