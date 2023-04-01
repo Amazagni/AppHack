@@ -3,7 +3,7 @@ import React, {
   useMemo,
   useRef,
   useEffect,
-  useState,
+  useState
 } from "react";
 import {
   View,
@@ -22,19 +22,9 @@ import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
-} from 'react-native-reanimated';
-
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
-
-import Animated, {
   useSharedValue,
-  interpolate,
-  useAnimatedStyle,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
+
 
 const BottomPanel = (props) => {
   const [toPos, setToPos] = useState(0);
