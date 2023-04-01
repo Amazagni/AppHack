@@ -5,8 +5,9 @@ export const fetchPoints = createAsyncThunk(
   "points/fetchPoints",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await api.get("/points");
-      return response.data;
+      const response = await api.get("/points?populate=*");
+
+      return response.data.data;
     } catch (err) {
       console.log(err.response);
       return rejectWithValue(err.response);
@@ -41,6 +42,8 @@ export const { changeTheme, setDefaultTheme } = slice.actions;
 export default slice.reducer;
 
 export const selectPoints = (state) => {
+  let discovered = state.points.point;
+
   return {
     points: state.points.points,
     loading: state.points.pointsLoading,
