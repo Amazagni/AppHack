@@ -22,17 +22,19 @@ const BottomPanel = () => {
     console.log("handleSheetChanges", index);
   }, []);
 
+  //<LocationMap/>
+
   // renders
   return (
     <BottomSheetModalProvider>
       <View style={styles.container}>
-        <LocationMap/>
-        <View style={styles.contentBackground}/>
+
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
+          backdropComponent={(props) => {<CustomBackdrop {...props}/>}}
         >
           <View style={styles.contentContainer}>
             <Text style={styles.titleText}>Nickname</Text>
@@ -90,8 +92,40 @@ const styles = StyleSheet.create({
     marginBottom: 25
   },
   contentBackground: {
-    height: '45%'
+    height: '40%'
   }
 });
 
 export default BottomPanel;
+
+import Animated, {
+  Extrapolate,
+  interpolate,
+  interpolateColors,
+} from 'react-native-reanimated';
+
+const CustomBackdrop = ({ animatedIndex, style }) => {
+  // animated variables
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(
+      animatedIndex.value,
+      [0, 1],
+      [0, 1],
+      Extrapolate.CLAMP
+    ),
+  }));
+
+  // styles
+  const containerStyle = useMemo(
+    () => [
+      style,
+      {
+        backgroundColor: "#a8b5eb",
+      },
+      containerAnimatedStyle,
+    ],
+    [style, containerAnimatedStyle]
+  );
+
+  return <Animated.View style={containerStyle} />;
+};
