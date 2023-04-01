@@ -12,6 +12,12 @@ import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
 
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
 const BottomPanel = () => {
   // ref
   const sheetRef = useRef(null);
@@ -41,11 +47,11 @@ const BottomPanel = () => {
   // renders
   return (
     <View style={styles.container}>
-      <LocationMap />
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
         onChange={handleSheetChange}
+        backdropComponent={(props) =>(<CustomBackdrop {...props} />)}
       >
         <View style={styles.contentContainer}>
           <Text style={styles.titleText}>Nickname</Text>
@@ -108,21 +114,14 @@ const styles = StyleSheet.create({
 
 export default BottomPanel;
 
-import Animated, {
-  Extrapolate,
-  interpolate,
-  interpolateColors,
-} from 'react-native-reanimated';
-
 const CustomBackdrop = ({ animatedIndex, style }) => {
-  // animated variables
   const containerAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
+    height: interpolate(
       animatedIndex.value,
       [0, 1],
-      [0, 1],
-      Extrapolate.CLAMP
-    ),
+      [700, 500],
+      Extrapolate.CLAMP    
+      ),
   }));
 
   // styles
@@ -137,5 +136,7 @@ const CustomBackdrop = ({ animatedIndex, style }) => {
     [style, containerAnimatedStyle]
   );
 
-  return <Animated.View style={containerStyle} />;
+  return (<Animated.View style={containerStyle} >
+          <LocationMap />
+  </Animated.View>);
 };
