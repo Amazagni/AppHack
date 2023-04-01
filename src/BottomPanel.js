@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useRef, useEffect } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
 import {
   View,
   Text,
@@ -18,12 +24,36 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 
-const BottomPanel = () => {
-  // ref
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+
+import Animated, {
+  useSharedValue,
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
+
+const BottomPanel = (props) => {
+  const [toPos, setToPos] = useState(0);
+
   const sheetRef = useRef(null);
+  const currentPosition = useSharedValue(0);
+  useEffect(() => {
+    console.log("currentPosition", currentPosition);
+  }, [currentPosition]);
 
   // variables
-  const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
+  const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
+  const handleSheetAnimate = useCallback(
+    (from, to) => {
+      setToPos(snapPoints[to]);
+      console.log("handleSheetAnimate", { from, to });
+    },
+    [snapPoints]
+  );
 
   const handleSheetChange = useCallback((index) => {
     console.log("handleSheetChange", index);
@@ -47,11 +77,14 @@ const BottomPanel = () => {
   // renders
   return (
     <View style={styles.container}>
+      <LocationMap style={{ height: toPos }} />
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
         onChange={handleSheetChange}
         backdropComponent={(props) =>(<CustomBackdrop {...props} />)}
+        animatedPosition={currentPosition}
+        onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
           <Text style={styles.titleText}>Nickname</Text>
@@ -59,12 +92,19 @@ const BottomPanel = () => {
             style={styles.icon}
             source={require("../assets/icon.png")}
           ></Image>
+
           <Text>Map completion: 70%</Text>
           <View style={styles.expBar}>
             <View style={styles.expProgress}></View>
           </View>
           <Text style={styles.levelText}>Level: 20</Text>
-          <Button title="Achievements" color={"green"}></Button>
+          <Button
+            onPress={() => {
+              props.navigation.navigate("Achievements");
+            }}
+            title="Achievements"
+            color={"green"}
+          ></Button>
         </View>
       </BottomSheet>
     </View>
