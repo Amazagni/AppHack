@@ -12,33 +12,50 @@ import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import PointDetails from "../components/PointDetails/PointDetails";
 import Achievement from "../components/achievement/Achievement";
+import QuestComponent from "../components/questCard/questComponent";
+import { selectquests } from "../store/slices/questSlice";
+import { useSelector } from "react-redux";
 
 const Achievements = () => {
+  const { quests, loading, error } = useSelector(selectquests);
+  console.log(quests);
   return (
-    <View style={styles.container}>
-      <View style={styles.categoryNameContainer}>
-        <Text style={styles.categoryName}>Kraków</Text>
-        <Text>4/15</Text>
-      </View>
-      <Achievement
-        imageSource={require("../../assets/icon.png")}
-        achievementTitle="Achievement Name"
-      />
-      <Achievement
-        imageSource={require("../../assets/icon.png")}
-        achievementTitle="Achievement Name"
-      />
-      <Achievement
-        imageSource={require("../../assets/icon.png")}
-        achievementTitle="Achievement Name"
-      />
-      <Achievement
-        imageSource={require("../../assets/icon.png")}
-        achievementTitle="Achievement Name"
-      />
-      <View style={styles.categoryNameContainer}>
-        <Text style={styles.categoryName}>Kraków</Text>
-      </View>
+    <View style={StyleSheet.absoluteFill}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.categoryNameContainer}>
+          <Text style={styles.categoryName}>Kraków</Text>
+          <Text>4/15</Text>
+        </View>
+        <Achievement
+          imageSource={require("../../assets/icon.png")}
+          achievementTitle="Achievement Name"
+        />
+        <Achievement
+          imageSource={require("../../assets/icon.png")}
+          achievementTitle="Achievement Name"
+        />
+        <Achievement
+          imageSource={require("../../assets/icon.png")}
+          achievementTitle="Achievement Name"
+        />
+        <Achievement
+          imageSource={require("../../assets/icon.png")}
+          achievementTitle="Achievement Name"
+        />
+        <View style={styles.categoryNameContainer}>
+          <Text style={styles.categoryName}>Zadania</Text>
+        </View>
+
+        {quests.map((quest) => (
+          <QuestComponent
+            key={quest.id}
+            imageSource={require("../../assets/icon.png")}
+            title={quest.attributes.Name}
+            description="Complete all the challenges to earn the ultimate reward!"
+            points="100"
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 };

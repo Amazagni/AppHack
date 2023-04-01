@@ -59,5 +59,5 @@ export const selectquests = (state) => {
 };
 
 export const selectActiveQuest = (state) => {
-  return state.quests.activeQuest;
+  return state.quests.quests[0];
 };
