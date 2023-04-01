@@ -1,21 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import App from "./src/App";
+// Integration of Google map in React Native using react-native-maps
+// https://aboutreact.com/react-native-map-example/
+// Import React
+import React from 'react';
+// Import required components
+import {SafeAreaView, StyleSheet, View} from 'react-native';
+// Import Map and Marker
+import MapView, {Marker} from 'react-native-maps';
+import LocationMap from './src/Map'
+import BottomPanel from './src/BottomPanel';
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.jsx to start working on your DUPA!</Text>
-      <StatusBar style="auto" />
+    <View>
+        <LocationMap />
+        <BottomPanel />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+};
+export default App;
