@@ -4,24 +4,28 @@ import { store, persistor } from "./src/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Index from "./src/index";
+// Integration of Google map in React Native using react-native-maps
+// https://aboutreact.com/react-native-map-example/
+// Import React
+import React from "react";
+// Import required components
+import { SafeAreaView, StyleSheet, View } from "react-native";
+// Import Map and Marker
+import MapView, { Marker } from "react-native-maps";
+import LocationMap from "./src/Map";
+import BottomPanel from "./src/BottomPanel";
 
-export default function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
-        <View style={styles.container}>
+        {/* <View style={styles.container}>
           <Index />
-        </View>
+        </View> */}
+        <LocationMap />
+        <BottomPanel />
       </PersistGate>
     </Provider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+};
+export default App;
