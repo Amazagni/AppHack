@@ -18,6 +18,7 @@ import { greaterOrEq } from "react-native-reanimated";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
 import { useSelector, connect } from "react-redux";
+import ActiveQuest from "./ActiveQuest";
 
 import Animated, {
   Extrapolate,
@@ -55,6 +56,7 @@ const BottomPanel = (props) => {
   // renders
   return (
     <View style={styles.container}>
+      <ActiveQuest style={styles.questStyle}/>
       <LocationMap style={{ height: toPos }} />
       <BottomSheet
         ref={sheetRef}
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    borderRadius: 50,
+    borderRadius: 50
   },
   contentContainer: {
     flex: 1,
@@ -127,6 +129,9 @@ const styles = StyleSheet.create({
   contentBackground: {
     height: "45%",
   },
+  questStyle: {
+    position: "absolute",
+  }
 });
 
 export default connect()(BottomPanel);
