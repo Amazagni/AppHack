@@ -8,11 +8,15 @@ import { useDispatch, connect, useSelector } from "react-redux";
 import { fetchPoints, selectPoints } from "./store/slices/pointsSlice";
 // Import Map and Marker
 import MapView, { Marker } from "react-native-maps";
+import { fetchquests, selectquests } from "./store/slices/questSlice";
 
 const ActiveQuest = () => {
-  //useEffect(() => {
-  //  dispatch(fetchPoints());
-  //}, []);
+  const dispatch = useDispatch();
+
+  const { quests, loading, error } = useSelector(selectquests);
+  useEffect(() => {
+    dispatch(fetchquests());
+  }, []);
 
   return <View style={styles.box}></View>;
 };
