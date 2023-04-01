@@ -1,4 +1,3 @@
-
 // Integration of Google map in React Native using react-native-maps
 // https://aboutreact.com/react-native-map-example/
 // Import React
@@ -11,22 +10,22 @@ import { fetchPoints, selectPoints } from "./store/slices/pointsSlice";
 import MapView, { Marker } from "react-native-maps";
 
 const ActiveQuest = () => {
-
   //useEffect(() => {
   //  dispatch(fetchPoints());
   //}, []);
 
-  return (
-    <View style={styles.box}>
-    </View>
-  );
+  return <View style={styles.box}></View>;
 };
 export default ActiveQuest;
 
 const styles = StyleSheet.create({
-    box: {
-        height: 100,
-        width: 100,
-        backgroundColor: "red",
-    }
-  });
+  box: {
+    height: 100,
+    width: 100,
+    backgroundColor: "red",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 69,
+  },
+});

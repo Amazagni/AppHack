@@ -14,6 +14,7 @@ import {
 import * as Location from "expo-location";
 
 import MapView, { Marker } from "react-native-maps";
+import ActiveQuest from "./ActiveQuest";
 const LocationMap = (props) => {
   const dispatch = useDispatch();
   const { points, loading, error } = useSelector(selectPoints);
@@ -33,6 +34,7 @@ const LocationMap = (props) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ ...styles.container }}>
+        <ActiveQuest />
         <MapView
           style={styles.mapStyle}
           initialRegion={{
@@ -158,13 +160,14 @@ const mapStyle = [
 ];
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    position: "relative",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     alignItems: "center",
     justifyContent: "flex-end",
+    flex: 1,
   },
   mapStyle: {
     position: "absolute",
