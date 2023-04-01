@@ -6,9 +6,11 @@ import { persistReducer, persistStore } from "redux-persist";
 
 import pointsSlice from "./slices/pointsSlice";
 import userSlice from "./slices/userSlice";
+import questSlice from "./slices/questSlice";
 const reducers = combineReducers({
   points: pointsSlice,
   user: userSlice,
+  quests: questSlice,
 });
 
 const persistConfig = {
