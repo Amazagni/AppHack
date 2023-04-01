@@ -1,13 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import App from "./src/App";
+import { store, persistor } from "./src/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import Index from "./src/index";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.jsx to start working on your DUPA!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <View style={styles.container}>
+          <Index />
+        </View>
+      </PersistGate>
+    </Provider>
   );
 }
 
