@@ -1,30 +1,23 @@
 import React, { useCallback, useMemo, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { useDispatch, connect, useSelector } from "react-redux";
+import { View, Text, StyleSheet, Button, Image, ScrollView } from "react-native";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { fetchUserData, selectUser } from "./store/slices/userSlice";
+import { greaterOrEq } from "react-native-reanimated";
+import LocationMap from "./Map";
 
 const BottomPanel = () => {
   // ref
-  const dispatch = useDispatch();
-  const { user, loading, error } = useSelector(selectUser);
   const bottomSheetModalRef = useRef(null);
-
+  
   // variables
   const snapPoints = useMemo(() => ["25%", "50%"], []);
 
   useEffect(() => {
-    console.log("test");
-    dispatch(fetchUserData());
-  }, []);
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
-  }, []);
+  },[])
+
   const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
@@ -33,11 +26,8 @@ const BottomPanel = () => {
   return (
     <BottomSheetModalProvider>
       <View style={styles.container}>
-        <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        />
+        <LocationMap/>
+        <View style={styles.contentBackground}/>
         <BottomSheetModal
           ref={bottomSheetModalRef}
           index={1}
@@ -45,7 +35,15 @@ const BottomPanel = () => {
           onChange={handleSheetChanges}
         >
           <View style={styles.contentContainer}>
-            <Text>Awesome 🎉</Text>
+            <Text style={styles.titleText}>Nickname</Text>
+            <Image style={styles.icon} source={require('../assets/icon.png')}></Image>
+            <Text>Map completion: 70%</Text>
+            <View style={styles.expBar}>
+              <View style={styles.expProgress}></View>
+            </View>
+            <Text style={styles.levelText}>Level: 20</Text>
+            <Button title="Achievements" color={"green"}>
+            </Button>
           </View>
         </BottomSheetModal>
       </View>
@@ -56,14 +54,44 @@ const BottomPanel = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
     justifyContent: "center",
-    backgroundColor: "grey",
+    borderRadius: 50
   },
   contentContainer: {
     flex: 1,
     alignItems: "center",
+    
   },
+  expBar: {
+    width: '70%',
+    height: 15,
+    backgroundColor: 'white',
+    borderWidth: 2,
+    marginBottom: 20
+  },
+  expProgress: {
+    width: '70%',
+    height: '100%',
+    backgroundColor: 'orange'
+  },
+  icon: {
+    height: 50,
+    width: 50,
+    marginBottom: 15
+
+  },
+  titleText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  levelText: {
+    fontSize: 25,
+    marginBottom: 25
+  },
+  contentBackground: {
+    height: '45%'
+  }
 });
 
 export default BottomPanel;

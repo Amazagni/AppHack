@@ -21,7 +21,6 @@ const App = () => {
         {/* <View style={styles.container}>
           <Index />
         </View> */}
-        <LocationMap />
         <BottomPanel />
       </PersistGate>
     </Provider>
