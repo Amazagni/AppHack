@@ -60,7 +60,6 @@ const BottomPanel = (props) => {
         ref={sheetRef}
         snapPoints={snapPoints}
         onChange={handleSheetChange}
-        backdropComponent={(props) => <CustomBackdrop {...props} />}
         onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
@@ -131,32 +130,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect()(BottomPanel);
-
-const CustomBackdrop = ({ animatedIndex, style }) => {
-  const containerAnimatedStyle = useAnimatedStyle(() => ({
-    height: interpolate(
-      animatedIndex.value,
-      [0, 1],
-      [700, 500],
-      Extrapolate.CLAMP
-    ),
-  }));
-
-  // styles
-  const containerStyle = useMemo(
-    () => [
-      style,
-      {
-        backgroundColor: "#a8b5eb",
-      },
-      containerAnimatedStyle,
-    ],
-    [style, containerAnimatedStyle]
-  );
-
-  return (
-    <Animated.View style={containerStyle}>
-      <LocationMap />
-    </Animated.View>
-  );
-};
