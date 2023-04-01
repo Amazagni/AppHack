@@ -7,18 +7,32 @@ import { SafeAreaView, StyleSheet, View } from "react-native";
 import { useDispatch, connect, useSelector } from "react-redux";
 import { fetchPoints, selectPoints } from "./store/slices/pointsSlice";
 // Import Map and Marker
+import * as Location from "expo-location";
+
 import MapView, { Marker } from "react-native-maps";
-const LocationMap = () => {
+const LocationMap = (props) => {
   const dispatch = useDispatch();
   const { points, loading, error } = useSelector(selectPoints);
 
   useEffect(() => {
     dispatch(fetchPoints());
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      } else {
+        console.log("Access granted!!");
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    console.log(props.style);
+  }, [props.style]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
+      <View style={{ ...styles.container }}>
         <MapView
           style={styles.mapStyle}
           initialRegion={{
@@ -28,6 +42,7 @@ const LocationMap = () => {
             longitudeDelta: 0.0421,
           }}
           customMapStyle={mapStyle}
+          showsUserLocation={true}
         >
           {!loading && points?.length > 0
             ? points.map((point) => {

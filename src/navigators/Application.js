@@ -5,24 +5,21 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from "@react-navigation/native";
-import { Startup } from "../screens";
-import { useTheme } from "../hooks";
-import MainNavigator from "./Main";
+
+import MapView from "../views/MapView";
+import Achievements from "../views/Achievements";
 //import { useFlipper } from '@react-navigation/devtools';
 const Stack = createStackNavigator();
 // @refresh reset
 const ApplicationNavigator = () => {
-  const { Layout, darkMode, NavigationTheme } = useTheme();
-  const { colors } = NavigationTheme;
   const navigationRef = useNavigationContainerRef();
   //useFlipper(navigationRef);
   return (
-    <SafeAreaView style={[Layout.fill, { backgroundColor: colors.card }]}>
-      <NavigationContainer theme={NavigationTheme} ref={navigationRef}>
-        <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Startup" component={Startup} />
-          <Stack.Screen name="Main" component={MainNavigator} />
+          <Stack.Screen name="MapView" component={MapView} />
+          <Stack.Screen name="Achievements" component={Achievements} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

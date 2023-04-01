@@ -15,6 +15,7 @@ import LocationMap from "./src/Map";
 import BottomPanel from "./src/BottomPanel";
 import { registerRootComponent } from "expo";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import ApplicationNavigator from "./src/navigators/Application";
 const App = () => {
   return (
     <Provider store={store}>
@@ -23,7 +24,7 @@ const App = () => {
           <Index />
         </View> */}
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <BottomPanel />
+          <ApplicationNavigator />
         </GestureHandlerRootView>
       </PersistGate>
     </Provider>
