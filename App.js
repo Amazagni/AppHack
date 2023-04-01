@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { store, persistor } from "./src/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import Index from "./src/index";
+
 // Integration of Google map in React Native using react-native-maps
 // https://aboutreact.com/react-native-map-example/
 // Import React

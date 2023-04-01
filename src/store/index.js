@@ -5,8 +5,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer, persistStore } from "redux-persist";
 
 import pointsSlice from "./slices/pointsSlice";
+import userSlice from "./slices/userSlice";
 const reducers = combineReducers({
   points: pointsSlice,
+  user: userSlice,
 });
 
 const persistConfig = {

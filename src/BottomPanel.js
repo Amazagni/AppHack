@@ -1,16 +1,25 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import { useDispatch, connect, useSelector } from "react-redux";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { fetchUserData, selectUser } from "./store/slices/userSlice";
 
 const BottomPanel = () => {
   // ref
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector(selectUser);
   const bottomSheetModalRef = useRef(null);
 
   // variables
   const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+  useEffect(() => {
+    console.log("test");
+    dispatch(fetchUserData());
+  }, []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
