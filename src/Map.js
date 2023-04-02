@@ -3,7 +3,7 @@
 // Import React
 import React, { useEffect, useState } from "react";
 // Import required components
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View, Image } from "react-native";
 import { useDispatch, connect, useSelector } from "react-redux";
 import {
   fetchPoints,
@@ -81,11 +81,6 @@ const LocationMap = (props) => {
                 return (
                   <Marker
                     key={point.id}
-                    icon={
-                      discovered
-                        ? {uri: point.attributes.Image.data.attributes.url}
-                        : require("../assets/quest.png")
-                    }
                     onPress={() => {
                       dispatch(setActivePoint(point));
                     }}
@@ -96,7 +91,29 @@ const LocationMap = (props) => {
                     title={
                       discovered ? point.attributes.Name : "Nieodkryte miejsce"
                     }
-                  />
+                  >
+                    {discovered ? (
+                      <Image
+                        source={{
+                          uri: point.attributes.Image.data.attributes.url,
+                        }}
+                        style={{
+                          height: 55,
+                          width: 55,
+                          borderRadius: 40,
+                          borderWidth: 2,
+                          borderColor: "white",
+                        }}
+                      />
+                    ) : (
+                      <Image
+                        source={require("../assets/quest.png")}
+                        style={{
+                          transform: [{ scale: 0.5 }],
+                        }}
+                      />
+                    )}
+                  </Marker>
                 );
               })
             : null}
@@ -108,107 +125,107 @@ const LocationMap = (props) => {
 export default LocationMap;
 const mapStyle = [
   {
-      "featureType": "water",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#193341"
-          }
-      ]
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#193341",
+      },
+    ],
   },
   {
-      "featureType": "landscape",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#2c5a71"
-          }
-      ]
+    featureType: "landscape",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#2c5a71",
+      },
+    ],
   },
   {
-      "featureType": "road",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#29768a"
-          },
-          {
-              "lightness": -37
-          }
-      ]
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#29768a",
+      },
+      {
+        lightness: -37,
+      },
+    ],
   },
   {
-      "featureType": "poi",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#406d80"
-          }
-      ]
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#406d80",
+      },
+    ],
   },
   {
-      "featureType": "transit",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#406d80"
-          }
-      ]
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#406d80",
+      },
+    ],
   },
   {
-      "elementType": "labels.text.stroke",
-      "stylers": [
-          {
-              "visibility": "on"
-          },
-          {
-              "color": "#3e606f"
-          },
-          {
-              "weight": 2
-          },
-          {
-              "gamma": 0.84
-          }
-      ]
+    elementType: "labels.text.stroke",
+    stylers: [
+      {
+        visibility: "on",
+      },
+      {
+        color: "#3e606f",
+      },
+      {
+        weight: 2,
+      },
+      {
+        gamma: 0.84,
+      },
+    ],
   },
   {
-      "elementType": "labels.text.fill",
-      "stylers": [
-          {
-              "color": "#ffffff"
-          }
-      ]
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#ffffff",
+      },
+    ],
   },
   {
-      "featureType": "administrative",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "weight": 0.6
-          },
-          {
-              "color": "#1a3541"
-          }
-      ]
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [
+      {
+        weight: 0.6,
+      },
+      {
+        color: "#1a3541",
+      },
+    ],
   },
   {
-      "elementType": "labels.icon",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    elementType: "labels.icon",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
   },
   {
-      "featureType": "poi.park",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "color": "#2c5a71"
-          }
-      ]
-  }
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [
+      {
+        color: "#2c5a71",
+      },
+    ],
+  },
 ];
 const styles = StyleSheet.create({
   container: {
