@@ -20,7 +20,7 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
 import { useSelector, connect } from "react-redux";
 import ActiveQuest from "./ActiveQuest";
-import { selectUser } from "./store/slices/userSlice"
+import { selectUser } from "./store/slices/userSlice";
 
 //import Animated, {
 //  Extrapolate,
@@ -60,13 +60,14 @@ const BottomPanel = (props) => {
 
   let a = currentPoint.isClose;
   const discovered = currentPoint.attributes.point_discoveries.data.length > 0;
+  console.log(user);
 
   // renders
   return (
     <View style={styles.container}>
-      <ActiveQuest style={styles.questStyle}/>
-      <PopButton />
-      <LocationMap style={{ height: toPos }} />
+      <ActiveQuest style={styles.questStyle} />
+      <PopButton/>
+      <LocationMap style={{ height: toPos }} navigation={props.navigation} />
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
@@ -74,7 +75,9 @@ const BottomPanel = (props) => {
         onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
-          <Text style={styles.titleText}>{user ? user.attributes.Name : "..."}</Text>
+          <Text style={styles.titleText}>
+            {user ? user.attributes.Name : "..."}
+          </Text>
           <Image
             style={styles.icon}
             source={require("../assets/kot.jpg")}
@@ -84,15 +87,10 @@ const BottomPanel = (props) => {
           <View style={styles.expBar}>
             <View style={styles.expProgress}></View>
           </View>
-          <Text style={styles.levelText}>Poziom: {user ? user.attributes.Experience / 10 : "..."}</Text>
+          <Text style={styles.levelText}>
+            Poziom: {user ? (user.attributes.Experience || 250) / 10 : "..."}
+          </Text>
           <PointDetails />
-          <Button
-            onPress={() => {
-              props.navigation.navigate("Achievements");
-            }}
-            title="Osiągnięcia"
-            color={"green"}
-          ></Button>
         </View>
       </BottomSheet>
     </View>
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     marginBottom: 15,
-    borderRadius: 100
+    borderRadius: 100,
   },
   titleText: {
     fontSize: 25,
@@ -179,6 +177,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect()(BottomPanel);
-
-
-
