@@ -16,6 +16,7 @@ import * as Location from "expo-location";
 
 import MapView, { Marker } from "react-native-maps";
 import ActiveQuest from "./ActiveQuest";
+import AchievementsRedirect from "./AcheveiementsRedirect";
 const LocationMap = (props) => {
   const dispatch = useDispatch();
 
@@ -63,6 +64,7 @@ const LocationMap = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ ...styles.container }}>
         <ActiveQuest />
+        <AchievementsRedirect {...props} />
         <MapView
           style={styles.mapStyle}
           initialRegion={{

@@ -61,7 +61,7 @@ const BottomPanel = (props) => {
   return (
     <View style={styles.container}>
       <ActiveQuest style={styles.questStyle} />
-      <LocationMap style={{ height: toPos }} />
+      <LocationMap style={{ height: toPos }} navigation={props.navigation} />
       <BottomSheet
         ref={sheetRef}
         snapPoints={snapPoints}
@@ -85,13 +85,6 @@ const BottomPanel = (props) => {
             Poziom: {user ? (user.attributes.Experience || 250) / 10 : "..."}
           </Text>
           <PointDetails />
-          <Button
-            onPress={() => {
-              props.navigation.navigate("Achievements");
-            }}
-            title="Osiągnięcia"
-            color={"green"}
-          ></Button>
         </View>
       </BottomSheet>
     </View>
