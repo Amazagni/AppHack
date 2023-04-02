@@ -30,15 +30,6 @@ export function useLottieAnim() {
 const PointDetails = (props) => {
   const lottieRef = useRef(null);
 
-  useEffect(() => {
-    if (lottieRef.current) {
-      setTimeout(() => {
-        lottieRef.current?.reset();
-        lottieRef.current?.play();
-      }, 100);
-    }
-  }, [lottieRef.current]);
-  const animation = useLottieAnim();
   const currentPoint = useSelector(selectActivePoint);
 
   if (!currentPoint) return null;
@@ -67,6 +58,8 @@ const PointDetails = (props) => {
     
     <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
     <Text style={styles.description}>{currentPoint.attributes.Description}</Text>
+    <Text> {currentPoint.attributes.Name || "TEST"} </Text>
+    <Text> {currentPoint.isClose && "KURWA BLISKO"}</Text>
     </View>
   )
 };

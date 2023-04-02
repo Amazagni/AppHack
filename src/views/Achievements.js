@@ -20,28 +20,30 @@ const Achievements = () => {
   const { quests, loading, error } = useSelector(selectquests);
   console.log(quests);
   return (
-    <View style={StyleSheet.absoluteFill}>
+    <View style={{ ...StyleSheet.absoluteFill, marginTop: 20 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.categoryNameContainer}>
           <Text style={styles.categoryName}>Kraków</Text>
           <Text>4/15</Text>
         </View>
-        <Achievement
-          imageSource={require("../../assets/icon.png")}
-          achievementTitle="Achievement Name"
-        />
-        <Achievement
-          imageSource={require("../../assets/icon.png")}
-          achievementTitle="Achievement Name"
-        />
-        <Achievement
-          imageSource={require("../../assets/icon.png")}
-          achievementTitle="Achievement Name"
-        />
-        <Achievement
-          imageSource={require("../../assets/icon.png")}
-          achievementTitle="Achievement Name"
-        />
+        <View style={styles.achievementsContainer}>
+          <Achievement
+            imageSource={require("../../assets/icon.png")}
+            achievementTitle="Achievement Name"
+          />
+          <Achievement
+            imageSource={require("../../assets/icon.png")}
+            achievementTitle="Achievement Name"
+          />
+          <Achievement
+            imageSource={require("../../assets/icon.png")}
+            achievementTitle="Achievement Name"
+          />
+          <Achievement
+            imageSource={require("../../assets/icon.png")}
+            achievementTitle="Achievement Name"
+          />
+        </View>
         <View style={styles.categoryNameContainer}>
           <Text style={styles.categoryName}>Zadania</Text>
         </View>
@@ -71,6 +73,13 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     margin: "auto",
   },
+  achievementsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
+
   icon: {
     height: 90,
     width: 90,
@@ -85,8 +94,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
+    width: "80%",
     marginTop: 15,
+    alignSelf: "center",
   },
 });
 

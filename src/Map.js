@@ -1,7 +1,7 @@
 // Integration of Google map in React Native using react-native-maps
 // https://aboutreact.com/react-native-map-example/
 // Import React
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // Import required components
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { useDispatch, connect, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   fetchPoints,
   selectPoints,
   setActivePoint,
+  setLocation,
 } from "./store/slices/pointsSlice";
 // Import Map and Marker
 import * as Location from "expo-location";
@@ -17,6 +18,7 @@ import MapView, { Marker } from "react-native-maps";
 import ActiveQuest from "./ActiveQuest";
 const LocationMap = (props) => {
   const dispatch = useDispatch();
+
   const { points, loading, error } = useSelector(selectPoints);
 
   useEffect(() => {
@@ -26,7 +28,33 @@ const LocationMap = (props) => {
       if (status !== "granted") {
         return;
       } else {
-        console.log("Access granted!!");
+        let foregroundSubscrition = Location.watchPositionAsync(
+          {
+            // Tracking options
+            accuracy: Location.Accuracy.High,
+            distanceInterval: 10,
+          },
+          (location) => {
+            console.log(location);
+            dispatch(setLocation(location));
+            /* Location object example:
+              {
+                coords: {
+                  accuracy: 20.100000381469727,
+                  altitude: 61.80000305175781,
+                  altitudeAccuracy: 1.3333333730697632,
+                  heading: 288.87445068359375,
+                  latitude: 36.7384213,
+                  longitude: 3.3463877,
+                  speed: 0.051263172179460526,
+                },
+                mocked: false,
+                timestamp: 1640286855545,
+              };
+            */
+            // Do something with location...
+          }
+        );
       }
     })();
   }, []);

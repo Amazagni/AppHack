@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../services/api";
+import { calcCrow } from "../../utils/maths";
 
 export const fetchPoints = createAsyncThunk(
   "points/fetchPoints",
@@ -22,11 +23,32 @@ const slice = createSlice({
     pointsLoading: false,
     pointsError: null,
     activePoint: {},
+    location: {},
   },
   reducers: {
     setActivePoint: (state, action) => {
-      console.log("wtddddddddddd");
       state.activePoint = action.payload;
+    },
+    setLocation: (state, action) => {
+      //long to lat XDD
+      let closest = state.points
+        .map((point) => {
+          let pointLat = point.attributes.Long;
+          let pointLong = point.attributes.Lat;
+          return {
+            ...point,
+            dist: calcCrow(
+              action.payload.coords.latitude,
+              action.payload.coords.longitude,
+              pointLat,
+              pointLong
+            ),
+          };
+        })
+        .sort((a, b) => a.dist - b.dist)[0];
+      if (closest.dist < 1) state.activePoint = { ...closest, isClose: true };
+
+      state.location = action.payload;
     },
   },
 
@@ -48,7 +70,7 @@ const slice = createSlice({
     });
   },
 });
-export const { setActivePoint } = slice.actions;
+export const { setActivePoint, setLocation } = slice.actions;
 export default slice.reducer;
 
 export const selectPoints = (state) => {
