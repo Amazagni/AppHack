@@ -95,10 +95,10 @@ const Achievements = () => {
         {quests.map((quest) => (
           <QuestComponent
             key={quest.id}
-            imageSource={require("../../assets/icon.png")}
+            imageSource={quest.attributes.Image.data.attributes.url}
             title={quest.attributes.Name}
             description="Complete all the challenges to earn the ultimate reward!"
-            points="100"
+            points={quest.attributes.Award}
           />
         ))}
       </ScrollView>
@@ -186,6 +186,9 @@ const styles = StyleSheet.create({
   sheetHeader: {
     flexDirection: "row",
     gap: 20,
+    maxWidth: "90%",
+    justifyContent: "flex-start",
+    marginLeft: 20,
   },
   imageContainer: {
     width: 80,
@@ -205,6 +208,10 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "darkgray",
+    maxWidth: "80%",
+    textAlign: "center",
+    alignContent: "center",
+    alignSelf: "center",
   },
 });
 

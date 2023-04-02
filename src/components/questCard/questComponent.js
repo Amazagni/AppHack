@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 const QuestComponent = ({ imageSource, title, description, points }) => {
   return (
     <View style={styles.container}>
-      <Image source={imageSource} style={styles.image} />
+      <Image source={{ uri: imageSource }} style={styles.image} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.description}>{description}</Text>
