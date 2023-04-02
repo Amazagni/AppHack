@@ -45,25 +45,30 @@ const PointDetails = (props) => {
 
   const discovered = currentPoint.attributes.point_discoveries.data.length > 0;
 
-  return (
-    <View style={styles.container}>
-      {discovered ? (
-        <Image
-          source={{ uri: currentPoint.attributes.Image.data.attributes.url }}
-          style={{ width: 150, height: 150 }}
-        ></Image>
-      ) : (
-        <Image
-          source={require("../../../assets/quest.png")}
-          style={{ width: 150, height: 150 }}
-          resizeMode="contain"
-          resizeMethod="resize"
-        ></Image>
-      )}
+  console.log(currentPoint.attributes);
 
-      <Text> {currentPoint.attributes.Name || "TEST"} </Text>
+  return (
+    <View style={styles.Container}>
+    <View style={{height: 3, width: "90%", backgroundColor: "black", marginBottom: 10}}></View>
+    
+    {discovered ? (
+         <Image
+           source={{ uri: currentPoint.attributes.Image.data.attributes.url }}
+           style={styles.image}
+         ></Image>
+       ) : (
+         <Image
+           source={require("../../../assets/quest.png")}
+           style={styles.image}
+           resizeMode="contain"
+           resizeMethod="resize"
+         ></Image>
+       )}    
+    
+    <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
+    <Text style={styles.description}>{currentPoint.attributes.Description}</Text>
     </View>
-  );
+  )
 };
 
 const styles = StyleSheet.create({
@@ -77,6 +82,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 90,
     margin: 5,
+    borderRadius: 50
   },
   categoryName: {
     fontSize: 30,
@@ -87,6 +93,29 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 15,
   },
+  Container: {
+    alignItems: "center",
+    marginVertical: 10,
+    width: "100%",
+    height: "50%",
+    padding: 10
+  },
+  image: {
+    width: 200, 
+    height: 200, 
+    borderRadius: 100, 
+    borderWidth: 3, 
+    borderColor: "black"
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+  description: {
+  }
 });
 
 export default PointDetails;

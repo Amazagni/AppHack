@@ -19,6 +19,7 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
 import { useSelector, connect } from "react-redux";
 import ActiveQuest from "./ActiveQuest";
+import { selectUser } from "./store/slices/userSlice"
 
 import Animated, {
   Extrapolate,
@@ -53,6 +54,9 @@ const BottomPanel = (props) => {
     if (currentPoint !== null) sheetRef.current.expand();
   }, [currentPoint]);
 
+  const {user, loading, error} = useSelector(selectUser);
+  console.log(user)
+
   // renders
   return (
     <View style={styles.container}>
@@ -65,23 +69,23 @@ const BottomPanel = (props) => {
         onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
-          <Text style={styles.titleText}>Nickname</Text>
+          <Text style={styles.titleText}>{user ? user.attributes.Name : "..."}</Text>
           <Image
             style={styles.icon}
-            source={require("../assets/icon.png")}
+            source={require("../assets/kot.jpg")}
           ></Image>
 
-          <Text>Map completion: 70%</Text>
+          <Text>Ukończenie mapy: 27%</Text>
           <View style={styles.expBar}>
             <View style={styles.expProgress}></View>
           </View>
-          <Text style={styles.levelText}>Level: 20</Text>
+          <Text style={styles.levelText}>Poziom: {user ? user.attributes.Experience / 10 : "..."}</Text>
           <PointDetails />
           <Button
             onPress={() => {
               props.navigation.navigate("Achievements");
             }}
-            title="Achievements"
+            title="Osiągnięcia"
             color={"green"}
           ></Button>
         </View>
@@ -108,14 +112,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   expProgress: {
-    width: "70%",
+    width: "27%",
     height: "100%",
     backgroundColor: "orange",
   },
   icon: {
-    height: 50,
-    width: 50,
+    height: 80,
+    width: 80,
     marginBottom: 15,
+    borderRadius: 100
   },
   titleText: {
     fontSize: 25,
@@ -124,14 +129,17 @@ const styles = StyleSheet.create({
   },
   levelText: {
     fontSize: 25,
-    marginBottom: 25,
+    marginBottom: 10,
   },
   contentBackground: {
     height: "45%",
   },
   questStyle: {
     position: "absolute",
-  }
+  },
 });
 
 export default connect()(BottomPanel);
+
+
+

@@ -10,6 +10,8 @@ import { fetchPoints, selectPoints } from "./store/slices/pointsSlice";
 import MapView, { Marker } from "react-native-maps";
 import { fetchquests, selectquests } from "./store/slices/questSlice";
 
+import {selectActiveQuest} from "./store/slices/questSlice"
+
 const ActiveQuest = () => {
   const dispatch = useDispatch();
 
@@ -18,9 +20,14 @@ const ActiveQuest = () => {
     dispatch(fetchquests());
   }, []);
 
+  const activeQuest = useSelector(selectActiveQuest);
   return (<View style={styles.box}>
-    <Image style={styles.icon}source={require('../assets/excl.png')}></Image>
-    <Text style={{marginTop: 12, marginLeft: 12, marginRight: 25}}>HGKJHKJHGKJG</Text>
+    <Image style={styles.icon} 
+    source={activeQuest ? require('../assets/yellowexcl.png') : require('../assets/excl.png')}>
+    </Image>
+    <Text style={{marginTop: 12, marginLeft: 12, marginRight: 25, fontWeight: "bold"}}>
+        {activeQuest ? activeQuest.attributes.Name : "Brak aktywnego"}
+    </Text>
   </View>);
 };
 export default ActiveQuest;
@@ -38,15 +45,17 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     position: "absolute",
     top: 50,
-    left: 10,
+    left: -10,
     zIndex: 69,
     borderRadius: 10,
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    backgroundColor: "white",
   },
   icon: {
-    height: 35,
-    width : 35,
-    position: "relative"
+    height: 40,
+    width : 30,
+    position: "relative",
+    marginLeft: 15
   }
 });
