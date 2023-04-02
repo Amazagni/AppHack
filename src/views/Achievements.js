@@ -21,6 +21,7 @@ import Achievement from "../components/achievement/Achievement";
 import QuestComponent from "../components/questCard/questComponent";
 import { selectquests } from "../store/slices/questSlice";
 import { useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const achievements = [
   {
@@ -53,7 +54,7 @@ const achievements = [
   },
 ];
 
-const Achievements = () => {
+const Achievements = (props) => {
   const { quests, loading, error } = useSelector(selectquests);
   const [curAchievement, setCurAchievement] = useState(achievements[0]);
 
@@ -68,9 +69,26 @@ const Achievements = () => {
   }, []);
 
   return (
-    <View style={{ ...StyleSheet.absoluteFill, marginTop: 20 }}>
+    <View
+      style={{
+        ...StyleSheet.absoluteFill,
+        marginTop: 20,
+        position: "relative",
+      }}
+    >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Button title="Go back" style={styles.goBackButton}></Button>
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.goBack();
+            }}
+            style={styles.btnn}
+          >
+            <Text style={styles.bttnText}>➜</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Odznaki i osiągnięcia</Text>
+        </View>
+
         <View style={styles.categoryNameContainer}>
           <Text style={styles.categoryName}>Kraków</Text>
           <Text>4/15</Text>
@@ -150,15 +168,36 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     margin: "auto",
   },
+
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+  },
+  headerText: {
+    fontSize: 30,
+  },
   achievementsContainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
   },
-  goBackButton: {
-    marginTop: 40,
+  btnn: {
+    width: 50,
+    transform: [{ rotate: "180deg" }, { translateY: -5 }],
+    zIndex: 420,
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
+  bttnText: {
+    fontSize: 40,
+    zIndex: 430,
+  },
+
   icon: {
     height: 90,
     width: 90,
