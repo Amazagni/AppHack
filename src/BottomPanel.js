@@ -19,7 +19,7 @@ import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import LocationMap from "./Map";
 import { useSelector, connect } from "react-redux";
 import ActiveQuest from "./ActiveQuest";
-import { selectUser } from "./store/slices/userSlice"
+import { selectUser } from "./store/slices/userSlice";
 
 import Animated, {
   Extrapolate,
@@ -54,13 +54,13 @@ const BottomPanel = (props) => {
     if (currentPoint !== null) sheetRef.current.expand();
   }, [currentPoint]);
 
-  const {user, loading, error} = useSelector(selectUser);
-  console.log(user)
+  const { user, loading, error } = useSelector(selectUser);
+  console.log(user);
 
   // renders
   return (
     <View style={styles.container}>
-      <ActiveQuest style={styles.questStyle}/>
+      <ActiveQuest style={styles.questStyle} />
       <LocationMap style={{ height: toPos }} />
       <BottomSheet
         ref={sheetRef}
@@ -69,7 +69,9 @@ const BottomPanel = (props) => {
         onAnimate={handleSheetAnimate}
       >
         <View style={styles.contentContainer}>
-          <Text style={styles.titleText}>{user ? user.attributes.Name : "..."}</Text>
+          <Text style={styles.titleText}>
+            {user ? user.attributes.Name : "..."}
+          </Text>
           <Image
             style={styles.icon}
             source={require("../assets/kot.jpg")}
@@ -79,7 +81,9 @@ const BottomPanel = (props) => {
           <View style={styles.expBar}>
             <View style={styles.expProgress}></View>
           </View>
-          <Text style={styles.levelText}>Poziom: {user ? user.attributes.Experience / 10 : "..."}</Text>
+          <Text style={styles.levelText}>
+            Poziom: {user ? (user.attributes.Experience || 250) / 10 : "..."}
+          </Text>
           <PointDetails />
           <Button
             onPress={() => {
@@ -98,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    borderRadius: 50
+    borderRadius: 50,
   },
   contentContainer: {
     flex: 1,
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     marginBottom: 15,
-    borderRadius: 100
+    borderRadius: 100,
   },
   titleText: {
     fontSize: 25,
@@ -140,6 +144,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect()(BottomPanel);
-
-
-
