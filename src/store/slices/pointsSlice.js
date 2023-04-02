@@ -45,7 +45,7 @@ const slice = createSlice({
             ),
           };
         })
-        .sort((a, b) => a.dist - b.dist)[0];
+        .sort((a, b) => a?.dist - b?.dist)[0];
       if (closest.dist < 1) state.activePoint = { ...closest, isClose: true };
 
       state.location = action.payload;
