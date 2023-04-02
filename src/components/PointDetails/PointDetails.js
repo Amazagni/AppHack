@@ -36,36 +36,40 @@ const PointDetails = (props) => {
 
   const discovered = currentPoint.attributes.point_discoveries.data.length > 0;
 
-  console.log(currentPoint.attributes);
-
   return (
     <View style={styles.Container}>
-    <View style={{height: 3, width: "90%", backgroundColor: "black", marginBottom: 10}}></View>
-    
-    {discovered ? (
-          <View>
-         <Image
-           source={{ uri: currentPoint.attributes.Image.data.attributes.url }}
-           style={styles.image}
-         ></Image>
-         <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
-         <Text style={styles.description}>{currentPoint.attributes.Description}</Text>
-         </View>
-       ) : (
-         <Image
-           source={require("../../../assets/quest.png")}
-           style={styles.image}
-           resizeMode="contain"
-           resizeMethod="resize"
-         ></Image>
-         
-       )}    
+      <View
+        style={{
+          height: 3,
+          width: "90%",
+          backgroundColor: "black",
+          marginBottom: 10,
+        }}
+      ></View>
 
-    <Text> {currentPoint.attributes.Name || "TEST"} </Text>
-    <Text> {currentPoint.isClose && "KURWA BLISKO"}</Text>
-    
+      {discovered ? (
+        <View>
+          <Image
+            source={{ uri: currentPoint.attributes.Image.data.attributes.url }}
+            style={styles.image}
+          ></Image>
+          <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
+          <Text style={styles.description}>
+            {currentPoint.attributes.Description}
+          </Text>
+        </View>
+      ) : (
+        <Image
+          source={require("../../../assets/quest.png")}
+          style={styles.image}
+          resizeMode="contain"
+          resizeMethod="resize"
+        ></Image>
+      )}
+
+      <Text> {currentPoint.attributes.Name || "TEST"} </Text>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 90,
     margin: 5,
-    borderRadius: 50
+    borderRadius: 50,
   },
   categoryName: {
     fontSize: 30,
@@ -95,24 +99,24 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: "100%",
     height: "50%",
-    padding: 10
+    padding: 10,
   },
   image: {
-    width: 200, 
-    height: 200, 
-    borderRadius: 100, 
-    borderWidth: 3, 
-    borderColor: "black"
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: "black",
+    alignSelf: "center",
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 20,
   },
-  description: {
-  }
+  description: {},
 });
 
 export default PointDetails;

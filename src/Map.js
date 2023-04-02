@@ -36,7 +36,6 @@ const LocationMap = (props) => {
             distanceInterval: 10,
           },
           (location) => {
-            console.log(location);
             dispatch(setLocation(location));
             /* Location object example:
               {

@@ -51,6 +51,23 @@ const slice = createSlice({
 
       state.location = action.payload;
     },
+
+    markPointAsDiscovered: (state, action) => {
+      state.activePoint.attributes.point_discoveries.data = [
+        { id: 1, type: "point_discovery" },
+      ];
+      state.points = state.points.map((point) => {
+        if (point.id === state.activePoint.id) {
+          let test = { ...point };
+          test.attributes.point_discoveries.data = [
+            { id: 1, type: "point_discovery" },
+          ];
+          return test;
+        }
+
+        return point;
+      });
+    },
   },
 
   extraReducers: (builder) => {
@@ -71,7 +88,8 @@ const slice = createSlice({
     });
   },
 });
-export const { setActivePoint, setLocation } = slice.actions;
+export const { setActivePoint, setLocation, markPointAsDiscovered } =
+  slice.actions;
 export default slice.reducer;
 
 export const selectPoints = (state) => {
