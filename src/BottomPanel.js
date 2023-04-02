@@ -12,6 +12,7 @@ import {
   Button,
   Image,
   ScrollView,
+  Animated
 } from "react-native";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { greaterOrEq } from "react-native-reanimated";
@@ -21,11 +22,11 @@ import { useSelector, connect } from "react-redux";
 import ActiveQuest from "./ActiveQuest";
 import { selectUser } from "./store/slices/userSlice"
 
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-} from "react-native-reanimated";
+//import Animated, {
+//  Extrapolate,
+//  interpolate,
+//  useAnimatedStyle,
+//} from "react-native-reanimated";
 import { selectActivePoint } from "./store/slices/pointsSlice";
 import PointDetails from "./components/PointDetails/PointDetails";
 
@@ -55,12 +56,16 @@ const BottomPanel = (props) => {
   }, [currentPoint]);
 
   const {user, loading, error} = useSelector(selectUser);
-  console.log(user)
+  //console.log(user)
+
+  let a = currentPoint.isClose;
+  const discovered = currentPoint.attributes.point_discoveries.data.length > 0;
 
   // renders
   return (
     <View style={styles.container}>
       <ActiveQuest style={styles.questStyle}/>
+      <PopButton />
       <LocationMap style={{ height: toPos }} />
       <BottomSheet
         ref={sheetRef}
@@ -93,12 +98,39 @@ const BottomPanel = (props) => {
     </View>
   );
 };
+// currentPoint.isClose && currentPoint.attributes.point_discoveries.data.length > 0
+const PopButton = () => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const currentPoint = useSelector(selectActivePoint)
+
+  // useEffect(() => {
+  //   Animated.timing(
+  //     animatedValue,
+  //     {
+  //       toValue: 1,
+  //       duration: 1000,
+  //       useNativeDriver: true //Add this line if you're using RN > 0.62
+  //     }
+  //   ).start();
+  // }, [animatedValue]);
+
+  // const op = animatedValue.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: [0, 1],
+  // });
+
+  return (
+    <View style={styles.popView}>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    borderRadius: 50
+    borderRadius: 50,
+    position: "relative"
   },
   contentContainer: {
     flex: 1,
@@ -137,6 +169,13 @@ const styles = StyleSheet.create({
   questStyle: {
     position: "absolute",
   },
+  popView: {
+    height: "15%", 
+    width: "100%", 
+    position: "absolute", 
+    backgroundColor:"black", 
+    zIndex: 2000
+  }
 });
 
 export default connect()(BottomPanel);

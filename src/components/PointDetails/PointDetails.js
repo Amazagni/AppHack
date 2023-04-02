@@ -43,10 +43,14 @@ const PointDetails = (props) => {
     <View style={{height: 3, width: "90%", backgroundColor: "black", marginBottom: 10}}></View>
     
     {discovered ? (
+          <View>
          <Image
            source={{ uri: currentPoint.attributes.Image.data.attributes.url }}
            style={styles.image}
          ></Image>
+         <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
+         <Text style={styles.description}>{currentPoint.attributes.Description}</Text>
+         </View>
        ) : (
          <Image
            source={require("../../../assets/quest.png")}
@@ -54,12 +58,12 @@ const PointDetails = (props) => {
            resizeMode="contain"
            resizeMethod="resize"
          ></Image>
+         
        )}    
-    
-    <Text style={styles.title}>{currentPoint.attributes.Name}</Text>
-    <Text style={styles.description}>{currentPoint.attributes.Description}</Text>
+
     <Text> {currentPoint.attributes.Name || "TEST"} </Text>
     <Text> {currentPoint.isClose && "KURWA BLISKO"}</Text>
+    
     </View>
   )
 };
