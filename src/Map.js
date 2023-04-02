@@ -78,6 +78,7 @@ const LocationMap = (props) => {
             ? points.map((point) => {
                 let discovered =
                   point.attributes.point_discoveries.data.length > 0;
+                let isQuest = point.attributes.quest_points.data.length > 0;
                 return (
                   <Marker
                     key={point.id}
@@ -102,7 +103,7 @@ const LocationMap = (props) => {
                           width: 55,
                           borderRadius: 40,
                           borderWidth: 2,
-                          borderColor: "white",
+                          borderColor: isQuest ? "orange" : "white",
                         }}
                       />
                     ) : (

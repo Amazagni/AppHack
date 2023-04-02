@@ -31,6 +31,7 @@ const slice = createSlice({
     },
     setLocation: (state, action) => {
       //long to lat XDD
+      if (state.points.length === 0) return;
       let closest = state.points
         .map((point) => {
           let pointLat = point.attributes.Long;
