@@ -83,7 +83,7 @@ const LocationMap = (props) => {
                     key={point.id}
                     icon={
                       discovered
-                        ? require("../assets/yellowexcl.png")
+                        ? {uri: point.attributes.Image.data.attributes.url}
                         : require("../assets/quest.png")
                     }
                     onPress={() => {
@@ -107,84 +107,108 @@ const LocationMap = (props) => {
 };
 export default LocationMap;
 const mapStyle = [
-  { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
   {
-    featureType: "administrative.locality",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#193341"
+          }
+      ]
   },
   {
-    featureType: "poi",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
+      "featureType": "landscape",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#2c5a71"
+          }
+      ]
   },
   {
-    featureType: "poi.park",
-    elementType: "geometry",
-    stylers: [{ color: "#263c3f" }],
+      "featureType": "road",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#29768a"
+          },
+          {
+              "lightness": -37
+          }
+      ]
   },
   {
-    featureType: "poi.park",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#6b9a76" }],
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#406d80"
+          }
+      ]
   },
   {
-    featureType: "road",
-    elementType: "geometry",
-    stylers: [{ color: "#38414e" }],
+      "featureType": "transit",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#406d80"
+          }
+      ]
   },
   {
-    featureType: "road",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#212a37" }],
+      "elementType": "labels.text.stroke",
+      "stylers": [
+          {
+              "visibility": "on"
+          },
+          {
+              "color": "#3e606f"
+          },
+          {
+              "weight": 2
+          },
+          {
+              "gamma": 0.84
+          }
+      ]
   },
   {
-    featureType: "road",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#9ca5b3" }],
+      "elementType": "labels.text.fill",
+      "stylers": [
+          {
+              "color": "#ffffff"
+          }
+      ]
   },
   {
-    featureType: "road.highway",
-    elementType: "geometry",
-    stylers: [{ color: "#746855" }],
+      "featureType": "administrative",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "weight": 0.6
+          },
+          {
+              "color": "#1a3541"
+          }
+      ]
   },
   {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#1f2835" }],
+      "elementType": "labels.icon",
+      "stylers": [
+          {
+              "visibility": "off"
+          }
+      ]
   },
   {
-    featureType: "road.highway",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#f3d19c" }],
-  },
-  {
-    featureType: "transit",
-    elementType: "geometry",
-    stylers: [{ color: "#2f3948" }],
-  },
-  {
-    featureType: "transit.station",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
-  },
-  {
-    featureType: "water",
-    elementType: "geometry",
-    stylers: [{ color: "#17263c" }],
-  },
-  {
-    featureType: "water",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#515c6d" }],
-  },
-  {
-    featureType: "water",
-    elementType: "labels.text.stroke",
-    stylers: [{ color: "#17263c" }],
-  },
+      "featureType": "poi.park",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "color": "#2c5a71"
+          }
+      ]
+  }
 ];
 const styles = StyleSheet.create({
   container: {
